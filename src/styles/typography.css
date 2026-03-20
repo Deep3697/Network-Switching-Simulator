@@ -1,0 +1,17 @@
+/* src/styles/typography.css */
+@import url('https://fonts.googleapis.com/css2?family=Gravitas+One&family=M+PLUS+Rounded+1c:wght@400;700&display=swap');
+
+.font-heading {
+  font-family: 'Gravitas One', cursive, serif;
+}
+
+.font-typing {
+  /* Ensure BitCount is loaded locally in your index.html or fallback to monospace */
+  font-family: 'BitCount prop Double', monospace;
+  letter-spacing: 1px;
+}
+
+.font-basic {
+  /* Fallback to M PLUS Rounded if Alonica fails to load */
+  font-family: 'ALONICA', 'M PLUS Rounded 1c', sans-serif;
+}
