@@ -1,14 +1,16 @@
 // src/components/shared/EndPoint.jsx
 import React from 'react';
 
-function EndPoint({ type, label, imageSrc, isActive, connectionStatus }) {
-  const wireColor = connectionStatus === 'active' ? 'var(--accent-peach)' 
-                  : connectionStatus === 'setup' ? '#FFC107' 
-                  : 'transparent'; 
+function EndPoint({ type, label, imageSrc, isActive, connectionStatus, index = 0, totalCount = 4 }) {
+  const wireColor = connectionStatus === 'active' ? '#4CAF50'
+    : connectionStatus === 'setup' ? '#FFC107'
+      : connectionStatus === 'blocked' ? '#F44336'
+        : 'transparent';
 
-  const shadow = connectionStatus === 'active' ? '0px 0px 10px rgba(255, 138, 101, 0.8)' 
-               : connectionStatus === 'setup' ? '0px 0px 4px #FFC107' 
-               : 'none';
+  const shadow = connectionStatus === 'active' ? '0px 0px 10px rgba(76, 175, 80, 0.8)'
+    : connectionStatus === 'setup' ? '0px 0px 4px #FFC107'
+      : connectionStatus === 'blocked' ? '0px 0px 10px rgba(244, 67, 54, 0.8)'
+        : 'none';
 
   // 🔥 MASSIVE 140px SIZE 🔥
   const imageStyle = {
@@ -23,31 +25,51 @@ function EndPoint({ type, label, imageSrc, isActive, connectionStatus }) {
     cursor: 'pointer'
   };
 
-  const wireStyle = {
-    height: '8px', // Slightly thicker wire to match big images
-    width: '120px', 
-    backgroundColor: wireColor,
-    boxShadow: shadow,
-    transition: 'var(--transition-speed)',
-    margin: 'auto 0'
-  };
+  const desktopOffset = (totalCount / 2 - 0.5 - index) * 180; // Approximate vertical distance
 
-  const containerStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px'
-  };
+  const svgWire = (
+    <svg className="endpoint-wire" style={{ overflow: 'visible', zIndex: 0 }}>
+      {connectionStatus !== 'idle' && connectionStatus !== 'transparent' && (
+        <>
+          {/* Desktop Line - Horizontal orientation, angled vertically */}
+          <line 
+            className="desktop-line"
+            x1="0" 
+            y1={type === "User" || type === "Sender" ? 4 : desktopOffset + 4} 
+            x2="100%" 
+            y2={type === "User" || type === "Sender" ? desktopOffset + 4 : 4} 
+            stroke={wireColor} 
+            strokeWidth="8"
+            strokeLinecap="round"
+            style={{ transition: 'stroke 0.3s ease', filter: `drop-shadow(${shadow})` }} 
+          />
+          {/* Mobile Line - Vertical orientation, points straight down */}
+          <line 
+            className="mobile-line"
+            x1="4" 
+            y1="0" 
+            x2="4" 
+            y2="100%" 
+            stroke={wireColor} 
+            strokeWidth="8"
+            strokeLinecap="round"
+            style={{ transition: 'stroke 0.3s ease', filter: `drop-shadow(${shadow})` }} 
+          />
+        </>
+      )}
+    </svg>
+  );
 
   return (
-    <div className="font-basic" style={containerStyle}>
-      {type === "Server" && <div style={wireStyle}></div>}
+    <div className="font-basic endpoint-wrapper">
+      {type === "Server" && svgWire}
 
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', zIndex: 1, position: 'relative' }}>
         <img src={imageSrc} alt={`${type} ${label}`} style={imageStyle} />
         <span style={{ fontWeight: 'bold', color: 'var(--text-dark)', fontSize: '1.1rem' }}>{type} {label}</span>
       </div>
 
-      {type === "User" || type === "Sender" ? <div style={wireStyle}></div> : null}
+      {(type === "User" || type === "Sender") && svgWire}
     </div>
   );
 }

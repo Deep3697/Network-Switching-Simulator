@@ -64,3 +64,182 @@ body {
   50% { box-shadow: 0px 0px 20px rgba(244, 67, 54, 0.8); transform: scale(1.02); }
   100% { box-shadow: 0px 0px 0px rgba(244, 67, 54, 0.4); transform: scale(1); }
 }
+
+/* --- RESPONSIVE LAYOUT CLASSES --- */
+
+/* App level containers */
+.matrix-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  min-height: 60vh;
+  padding: 10px 0;
+}
+
+.node-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  gap: 20px;
+}
+
+/* Trunk styling for CircuitMatrix / RouterWeb */
+.trunk-column {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 3;
+  margin: 0 20px;
+  border-left: 2px dashed #ccc;
+  border-right: 2px dashed #ccc;
+  min-height: 400px;
+  position: relative;
+}
+
+.trunk-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.trunk-wires {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 50px;
+  padding: 0 5px;
+  justify-content: center;
+}
+
+/* EndPoint styling */
+.endpoint-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.endpoint-wire {
+  height: 8px;
+  width: 120px;
+  margin: auto 0;
+}
+
+.sender-offset {
+  margin-right: -130px;
+}
+
+.connection-line {
+  --line-cross: 6px;
+  height: var(--line-cross);
+  width: var(--line-main, 100%);
+  margin: auto 0;
+}
+
+/* ConnectionLine label */
+.desktop-line { display: block; }
+.mobile-line { display: none; }
+
+.connection-label {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.router-column {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Container for the single wire */
+.wire-container {
+  display: flex;
+  flex: 1;
+  padding: 0 10px;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+@media (max-width: 900px) {
+  .matrix-container {
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px 10px;
+  }
+
+  .node-column {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .trunk-column {
+    flex-direction: column;
+    border-left: none;
+    border-right: none;
+    border-top: 2px dashed #ccc;
+    border-bottom: 2px dashed #ccc;
+    margin: 20px 0;
+    padding: 40px 0;
+  }
+
+  .trunk-inner {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .trunk-wires {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+  }
+
+  .endpoint-wrapper {
+    flex-direction: column;
+  }
+
+  .endpoint-wire {
+    width: 8px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .sender-offset {
+    margin-right: 0;
+    margin-bottom: -130px;
+  }
+
+  .connection-line {
+    width: var(--line-cross);
+    height: var(--line-main, 100%);
+    margin: 0 auto;
+  }
+
+  .desktop-line { display: none; }
+  .mobile-line { display: block; }
+
+  .connection-label {
+    top: 50%;
+    left: -35px;
+    transform: translateY(-50%);
+  }
+  
+  .router-column {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .wire-container {
+    padding: 10px 0;
+  }
+}

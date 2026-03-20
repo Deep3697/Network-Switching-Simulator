@@ -90,9 +90,6 @@ function CircuitMatrix() {
   };
 
   // --- UPDATED LAYOUT STYLES FOR LARGER IMAGES ---
-  const matrixContainerStyle = { display: 'flex', justifyContent: 'space-between', alignItems: 'stretch', minHeight: '60vh', padding: '10px 0px' };
-  
-  const columnStyle = { display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', flex: 1, gap: '20px' }; 
   const buttonStyle = { padding: '10px 20px', border: '2px solid var(--text-dark)', borderRadius: 'var(--border-radius)', cursor: 'pointer', fontWeight: 'bold', margin: '5px' };
 
   return (
@@ -112,10 +109,10 @@ function CircuitMatrix() {
         </button>
       </div>
 
-      <div style={matrixContainerStyle}>
+      <div className="matrix-container">
         
         {/* Users with Connected Paths */}
-        <div style={columnStyle}>
+        <div className="node-column">
           {Array.from({ length: userCount }).map((_, i) => {
             const label = String.fromCharCode(65 + i);
             const conn = activeConnections.find(c => c.user === label);
@@ -138,21 +135,21 @@ function CircuitMatrix() {
         </div>
 
         {/* --- TRUNK VISUALIZATION (Linked to connections) --- */}
-        <div style={{ ...columnStyle, flex: 3, borderLeft: '2px dashed #ccc', borderRight: '2px dashed #ccc', margin: '0 5px', flexDirection: 'row' }}>
-            <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 10px' }}>
+        <div className="trunk-column">
+            <div className="trunk-inner">
                 
                 {/* POINTING TO YOUR SWITCH.PNG */}
                 <SwitchNode id="IN" status={isBlocked ? 'blocked' : (activeConnections.length > 0 ? 'active' : 'empty')} imageSrc="/images/switch.png" />
                 
                 {/* The 3 Physical Wires rendered vertically */}
-                <div style={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '50px', padding: '0 5px', justifyContent: 'center' }}>
+                <div className="trunk-wires">
                   {[0, 1, 2].map((index) => {
                     const conn = activeConnections.find(c => c.trunkWireIndex === index);
                     return (
                       <div key={index} style={{ position: 'relative', width: '100%', display: 'flex' }}>
                         <ConnectionLine status={conn ? conn.status : 'idle'} />
                         {conn && (
-                          <span className="font-basic" style={{ position: 'absolute', top: '-22px', left: '50%', transform: 'translateX(-50%)', fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>
+                          <span className="font-basic connection-label" style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>
                             {conn.user} ↔ {conn.server}
                           </span>
                         )}
@@ -169,7 +166,7 @@ function CircuitMatrix() {
         {/* ------------------------------------------ */}
 
         {/* Servers with Connected Paths */}
-        <div style={columnStyle}>
+        <div className="node-column">
           {Array.from({ length: serverCount }).map((_, i) => {
             const label = `${i + 1}`;
             const conn = activeConnections.find(c => c.server === label);

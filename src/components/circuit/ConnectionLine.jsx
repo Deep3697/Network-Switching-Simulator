@@ -19,18 +19,17 @@ function ConnectionLine({ status }) {
   }
 
   const lineStyle = {
-    height: '6px', // Thick, visible wire
-    width: status === 'idle' ? '0%' : '100%',    backgroundColor: lineColor,
+    '--line-main': status === 'idle' ? '0%' : '100%',
+    backgroundColor: lineColor,
     boxShadow: shadow,
     borderRadius: 'var(--border-radius)',
     transition: 'var(--transition-speed)',
-    margin: 'auto 0', // Centers it vertically
     animation: status === 'setup' ? 'pulseGlow 1.5s infinite' : 'none'
   };
 
   return (
-    <div style={{ display: 'flex', flex: 1, padding: '0 10px', minWidth: '40px' }}>
-      <div style={lineStyle} />
+    <div className="wire-container">
+      <div className="connection-line" style={lineStyle} />
     </div>
   );
 }

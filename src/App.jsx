@@ -42,6 +42,20 @@ function App() {
 
       </main>
 
+      <span style={{
+        position: 'fixed',
+        bottom: '5px',
+        right: '10px',
+        fontSize: '0.6rem',
+        color: 'rgba(86, 47, 0, 0.07)', /* Barely visible dark text */
+        pointerEvents: 'none',
+        userSelect: 'none',
+        cursor: 'default',
+        zIndex: 9999
+      }}>
+        Deep Hirpara
+      </span>
+
     </div>
   );
 }

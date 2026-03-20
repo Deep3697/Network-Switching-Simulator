@@ -46,16 +46,15 @@ function RouterWeb() {
     setStatusText("QUEUES FLUSHED. NETWORK RESET.");
   };
 
-  const webContainerStyle = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', minHeight: '60vh', padding: '20px' };
   const buttonStyle = { marginTop: '20px', padding: '12px 24px', fontSize: '1.2rem', border: '2px solid var(--text-dark)', borderRadius: 'var(--border-radius)', cursor: 'pointer', fontWeight: 'bold' };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       
-      <div style={webContainerStyle}>
+      <div className="matrix-container">
         
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={{ marginRight: '-130px' }}>
+        <div className="node-column">
+          <div className="sender-offset">
             <EndPoint type="Sender" label="Source Node" imageSrc="/images/computer.png" isActive={isSending} />
           </div>
           <button 
@@ -75,13 +74,13 @@ function RouterWeb() {
           </button>
         </div>
 
-        <div style={{ flex: 3, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', borderLeft: '2px dashed #ccc', borderRight: '2px dashed #ccc', margin: '0 20px', minHeight: '400px', position: 'relative' }}>
+        <div className="trunk-column">
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '60px' }}>
+          <div className="router-column">
              <RouterNode id="A" queueCount={1} isCongested={false} imageSrc="/images/switch.png" />
           </div>
           
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className="node-column" style={{ position: 'relative' }}>
              <RouterNode id="Core" queueCount={coreQueue} isCongested={coreQueue >= 5} imageSrc="/images/switch.png" />
              
              {/* THE NEW CSS ANIMATION MAPPING */}
@@ -100,13 +99,13 @@ function RouterWeb() {
              )}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '60px' }}>
+          <div className="router-column">
              <RouterNode id="C" queueCount={0} isCongested={false} imageSrc="/images/switch.png" />
           </div>
 
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className="node-column">
           <EndPoint type="Receiver" label="Destination Server" imageSrc="/images/server.png" isActive={false} />
           
           <div style={{ marginTop: '20px', padding: '10px', backgroundColor: droppedPackets > 0 ? '#ffebee' : 'transparent', border: `2px solid ${droppedPackets > 0 ? '#F44336' : 'transparent'}`, borderRadius: 'var(--border-radius)', textAlign: 'center' }}>
