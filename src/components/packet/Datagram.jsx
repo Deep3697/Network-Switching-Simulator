@@ -24,7 +24,7 @@ function Datagram({ id, status }) {
     alignItems: 'center',
     color: 'var(--text-dark)',
     fontSize: '1rem',
-    boxShadow: '2px 2px 0px var(--text-dark)', // Hard drop shadow
+    boxShadow: 'var(--shadow-sm)', // Soft drop shadow
     transition: 'var(--transition-speed)',
     zIndex: 10 // Ensures packets float on top of the wires
   };

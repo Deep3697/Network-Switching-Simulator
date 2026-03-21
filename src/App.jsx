@@ -23,7 +23,7 @@ function App() {
         minHeight: '100vh', 
         display: 'flex', 
         flexDirection: 'column', 
-        backgroundColor: 'var(--bg-light)' // Ensures the light theme base fills the whole screen
+        backgroundColor: 'var(--bg-main)' // Ensures the light theme base fills the whole screen
       }}
     >
       

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import EndPoint from '../shared/EndPoint';
 import RouterNode from './RouterNode';
 import Datagram from './Datagram';
+import TypewriterText from '../shared/TypewriterText';
 
 function RouterWeb() {
   const [statusText, setStatusText] = useState("DATAGRAM ENGINE READY. AWAITING FILE TRANSFER...");
@@ -46,7 +47,7 @@ function RouterWeb() {
     setStatusText("QUEUES FLUSHED. NETWORK RESET.");
   };
 
-  const buttonStyle = { marginTop: '20px', padding: '12px 24px', fontSize: '1.2rem', border: '2px solid var(--text-dark)', borderRadius: 'var(--border-radius)', cursor: 'pointer', fontWeight: 'bold' };
+  const buttonStyle = { marginTop: '20px', padding: '12px 24px', fontSize: '1.2rem', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius)', cursor: 'pointer', fontWeight: 'bold', backgroundColor: 'var(--bg-light)', color: 'var(--text-dark)', boxShadow: 'var(--shadow-sm)', transition: 'all var(--transition-speed)' };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -69,7 +70,7 @@ function RouterWeb() {
           >
             {isSending ? "Routing..." : "Send Data"}
           </button>
-          <button style={{ ...buttonStyle, backgroundColor: '#ffebee', fontSize: '1rem', marginTop: '10px' }} onClick={handleClear}>
+          <button style={{ ...buttonStyle, backgroundColor: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5', fontSize: '1rem', marginTop: '10px' }} onClick={handleClear}>
             Reset Network
           </button>
         </div>
@@ -108,7 +109,7 @@ function RouterWeb() {
         <div className="node-column">
           <EndPoint type="Receiver" label="Destination Server" imageSrc="/images/server.png" isActive={false} />
           
-          <div style={{ marginTop: '20px', padding: '10px', backgroundColor: droppedPackets > 0 ? '#ffebee' : 'transparent', border: `2px solid ${droppedPackets > 0 ? '#F44336' : 'transparent'}`, borderRadius: 'var(--border-radius)', textAlign: 'center' }}>
+          <div style={{ marginTop: '20px', padding: '10px', backgroundColor: droppedPackets > 0 ? '#fee2e2' : 'transparent', border: `1px solid ${droppedPackets > 0 ? '#fca5a5' : 'transparent'}`, borderRadius: 'var(--border-radius)', textAlign: 'center' }}>
             <span className="font-typing" style={{ color: 'var(--text-dark)', fontWeight: 'bold' }}>
               PACKETS LOST: {droppedPackets}
             </span>
@@ -117,9 +118,9 @@ function RouterWeb() {
 
       </div>
 
-      <div style={{ backgroundColor: 'var(--text-dark)', padding: '15px 20px', margin: '20px', borderRadius: 'var(--border-radius)', border: '3px solid var(--accent-orange)' }}>
-        <p className="font-typing" style={{ color: 'var(--accent-peach)', margin: 0, fontSize: '1.2rem' }}>
-          &gt; {statusText}<span className="cursor-blink">_</span>
+      <div style={{ backgroundColor: 'var(--bg-light)', padding: '15px 20px', margin: '20px', borderRadius: 'var(--border-radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
+        <p className="font-typing" style={{ color: 'var(--accent-orange)', margin: 0, fontSize: '1.1rem', fontWeight: 'bold' }}>
+          &gt; <TypewriterText text={statusText} /><span className="cursor-blink" style={{color: 'var(--text-dark)'}}>_</span>
         </p>
       </div>
 

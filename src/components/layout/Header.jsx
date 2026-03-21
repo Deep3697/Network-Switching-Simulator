@@ -8,20 +8,16 @@ function Header({ currentMode, onToggle }) {
     alignItems: 'center',
     padding: '15px 30px',
     backgroundColor: 'var(--bg-light)', // Light header
-    borderBottom: '3px solid var(--accent-orange)',
-    boxShadow: '0 4px 10px rgba(86, 47, 0, 0.1)' // Soft deep brown shadow
+    borderBottom: '1px solid var(--border-color)',
+    boxShadow: 'var(--shadow-sm)' // Soft flat shadow
   };
 
   const buttonStyle = {
-    color: 'var(--text-dark)',
-    border: '2px solid var(--text-dark)',
     padding: '10px 24px',
     fontSize: '1.1rem',
     fontWeight: 'bold',
     borderRadius: 'var(--border-radius)',
     cursor: 'pointer',
-    boxShadow: '4px 4px 0px var(--text-dark)', /* Hard architectural shadow */
-    transition: 'transform 0.1s, box-shadow 0.1s'
   };
 
   return (
@@ -39,14 +35,6 @@ function Header({ currentMode, onToggle }) {
         className="bg-gradient font-basic"
         style={buttonStyle} 
         onClick={onToggle}
-        onMouseDown={(e) => {
-          e.target.style.transform = 'translate(2px, 2px)';
-          e.target.style.boxShadow = '2px 2px 0px var(--text-dark)';
-        }}
-        onMouseUp={(e) => {
-          e.target.style.transform = 'translate(0px, 0px)';
-          e.target.style.boxShadow = '4px 4px 0px var(--text-dark)';
-        }}
       >
         Wanna Switch?
       </button>

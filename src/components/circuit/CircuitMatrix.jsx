@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import EndPoint from '../shared/EndPoint';
 import SwitchNode from './SwitchNode';
 import ConnectionLine from './ConnectionLine';
+import Datagram from '../packet/Datagram';
+import TypewriterText from '../shared/TypewriterText';
 
 function CircuitMatrix() {
   const [userCount, setUserCount] = useState(4);
@@ -90,7 +92,7 @@ function CircuitMatrix() {
   };
 
   // --- UPDATED LAYOUT STYLES FOR LARGER IMAGES ---
-  const buttonStyle = { padding: '10px 20px', border: '2px solid var(--text-dark)', borderRadius: 'var(--border-radius)', cursor: 'pointer', fontWeight: 'bold', margin: '5px' };
+  const buttonStyle = { padding: '10px 20px', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius)', cursor: 'pointer', fontWeight: 'bold', margin: '5px', backgroundColor: 'var(--bg-light)', color: 'var(--text-dark)', boxShadow: 'var(--shadow-sm)', transition: 'all var(--transition-speed)' };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', maxWidth: '1400px', margin: '0 auto', overflowX: 'hidden' }}>
@@ -104,7 +106,7 @@ function CircuitMatrix() {
         >
           {isSettingUp ? "Connecting..." : "Establish Circuit"}
         </button>
-        <button style={{ ...buttonStyle, backgroundColor: '#ffebee' }} onClick={handleClear}>
+        <button style={{ ...buttonStyle, backgroundColor: '#fee2e2', color: '#b91c1c', border: '1px solid #fca5a5' }} onClick={handleClear}>
           Teardown All
         </button>
       </div>
@@ -146,12 +148,25 @@ function CircuitMatrix() {
                   {[0, 1, 2].map((index) => {
                     const conn = activeConnections.find(c => c.trunkWireIndex === index);
                     return (
-                      <div key={index} style={{ position: 'relative', width: '100%', display: 'flex' }}>
+                      <div key={index} style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center' }}>
                         <ConnectionLine status={conn ? conn.status : 'idle'} />
                         {conn && (
                           <span className="font-basic connection-label" style={{ fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-dark)' }}>
                             {conn.user} ↔ {conn.server}
                           </span>
+                        )}
+                        {conn && conn.status === 'active' && (
+                           <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', pointerEvents: 'none', zIndex: 10 }}>
+                             {[1, 2, 3, 4].map((num, i) => (
+                               <div 
+                                 key={num} 
+                                 className="packet-animate" 
+                                 style={{ animationDelay: `${i * 0.6}s` }} 
+                               >
+                                 <Datagram id={`0${num}`} status="moving" />
+                               </div>
+                             ))}
+                           </div>
                         )}
                       </div>
                     );
@@ -190,9 +205,9 @@ function CircuitMatrix() {
 
       </div>
 
-      <div style={{ backgroundColor: 'var(--text-dark)', padding: '15px 20px', margin: '20px', borderRadius: 'var(--border-radius)', border: '3px solid var(--accent-orange)' }}>
-        <p className="font-typing" style={{ color: 'var(--accent-peach)', margin: 0, fontSize: '1.2rem' }}>
-          &gt; {statusText}<span className="cursor-blink">_</span>
+      <div style={{ backgroundColor: 'var(--bg-light)', padding: '15px 20px', margin: '20px', borderRadius: 'var(--border-radius)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
+        <p className="font-typing" style={{ color: 'var(--accent-orange)', margin: 0, fontSize: '1.1rem', fontWeight: 'bold' }}>
+          &gt; <TypewriterText text={statusText} /><span className="cursor-blink" style={{color: 'var(--text-dark)'}}>_</span>
         </p>
       </div>
 
