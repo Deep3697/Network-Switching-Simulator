@@ -178,6 +178,34 @@ body {
   gap: 60px;
 }
 
+/* ── Mesh Grid for Packet Switching ── */
+.mesh-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 8px;
+  padding: 20px 10px;
+  width: 100%;
+  min-height: 380px;
+}
+
+.mesh-link {
+  stroke: var(--border-color);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.mesh-link-active {
+  stroke: var(--accent-orange);
+  stroke-width: 3;
+  stroke-dasharray: none;
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(14, 165, 233, 0.7));
+  transition: all 0.15s ease;
+}
+
 /* Container for the single wire */
 .wire-container {
   display: flex;
@@ -259,5 +287,13 @@ body {
 
   .wire-container {
     padding: 10px 0;
+  }
+
+  .mesh-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    min-height: 300px;
+    gap: 4px;
+    padding: 10px 5px;
   }
 }
